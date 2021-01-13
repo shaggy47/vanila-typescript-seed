@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 const htmlWebPackPlugin = require('html-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
     devtool: 'inline-source-map',
