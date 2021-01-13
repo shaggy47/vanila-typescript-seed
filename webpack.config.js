@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
-const htmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 
 module.exports = {
@@ -13,13 +14,20 @@ module.exports = {
     module: {
         rules: [
             {
+                test:'/.\css$/i',
+                loader: 'css-loader'
+            },
+            {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: '/node_modules/'
             }
         ]
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: './src/index.html'
+    })],
     resolve: {
         extensions: [ '.ts', '.tsx', '.js' ]
     }
