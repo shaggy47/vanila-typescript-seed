@@ -1,24 +1,37 @@
 import $ from 'jquery';
-import {map } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-export class MainModule {
-    private bodyElement:any;
+import { fromEvent, pipe } from 'rxjs';
+import { map, reduce } from 'rxjs/operators';
+import { of } from 'rxjs';
 
-    constructor(){
+export class MainModule {
+    private bodyElement: any;
+
+    constructor() {
         this.bodyElement = document.getElementsByName('body');
         console.log(this.bodyElement);
     }
 
-    
-    
+    onClick(event: Event) {
+        console.log(event);
+
+    }
 
 }
 
-window.onload = ()=>{
+window.onload = () => {
     let btn = $('#btnClick');
-    fromEvent(btn, 'click').subscribe( (event: Event) =>{
-        console.log(event);
-        
-    });
+    let main: MainModule = new MainModule();
+    let body = $('body');
+
+    fromEvent(btn, 'click').subscribe(main.onClick);
+    //map((x:any) => x * x)(of(1,2,3,4,5,6)).subscribe( (v)=> console.log(`${v}`));
+    of(1, 2, 3, 4, 5, 6).pipe(
+        map((x: any) => {
+            
+            return x * x;
+        }),
+        map(x=> x+1)
+    ).subscribe(v=>console.log(`${v}`));
+    
 }
 
